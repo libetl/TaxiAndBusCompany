@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+  <project default="init" name="cdt" basedir=".">
+  <property name="nom_classe" value="Demarrer"/>
+  <property name="dos_classe" value="src/"/>
+  <property name="dos_constr" value="build/"/>
+  <property name="dos_execut" value="build/prod"/>
+  <description>
+    Projet de Gestion de Compagnie de Transports Terrestres.
+    Par Lionel Benychou
+  </description>
+  <target name="Preparer" description="Compiler">
+    <mkdir dir="${dos_constr}"/>
+    <mkdir dir="${dos_execut}"/>
+    <echo message="Prêt pour compilation"/>
+  </target>
+  <target name="compile" description="Compiler" depends="Preparer">
+    <javac sourcepath="" srcdir="./${dos_classe}" destdir="./${dos_execut}" executable="./${dos_execut}" classpath="./${dos_execut}"/>
+    <jar destfile="cdt.jar" basedir="${dos_execut}/">
+      <manifest>
+        <attribute name="Built-By" value="Lionel Benychou"/>
+        <attribute name="Main-class" value="Demarrer"/>
+      </manifest>
+    </jar>
+    <echo message="Fait."/>
+  </target>
+
+  <target name="run" description="Lancer" depends="compile">
+    <java classpath="${dos_execut}" classname="${nom_classe}"/>
+  </target>
+  <target name="init" depends="compile, run"/>
+</project>
+
